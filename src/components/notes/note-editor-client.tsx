@@ -102,9 +102,13 @@ setStatus("saved");
       </div>
 
       <Select value={subjectId ?? "none"} onValueChange={handleSubjectChange}>
-        <SelectTrigger className="w-fit">
-          <SelectValue placeholder="No subject" />
-        </SelectTrigger>
+  <SelectTrigger className="w-fit min-w-[220px]">
+    <SelectValue>
+      {subjectId
+        ? subjects.find((s) => s.id === subjectId)?.name
+        : "No subject"}
+    </SelectValue>
+  </SelectTrigger>
         <SelectContent>
           <SelectItem value="none">No subject</SelectItem>
           {subjects.map((subject) => (
