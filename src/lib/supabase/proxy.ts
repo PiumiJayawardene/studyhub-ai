@@ -38,16 +38,19 @@ export async function updateSession(request: NextRequest) {
     }
   );
 
-  const { data: claims } = await supabase.auth.getClaims();
-  const isProtectedRoute = protectedRoutes.some((route) =>
-    request.nextUrl.pathname.startsWith(route)
-  );
+ const {
+  data: { user },
+} = await supabase.auth.getUser();
 
-  if (!claims && isProtectedRoute) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  }
+const isProtectedRoute = protectedRoutes.some((route) =>
+  request.nextUrl.pathname.startsWith(route)
+);
 
-  return supabaseResponse;
+if (!user && isProtectedRoute) {
+  const url = request.nextUrl.clone();
+  url.pathname = "/login";
+  return NextResponse.redirect(url);
+}
+
+return supabaseResponse;
 }

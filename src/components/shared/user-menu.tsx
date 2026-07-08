@@ -38,31 +38,31 @@ export function UserMenu({
 </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-56">
-        <DropdownMenuLabel>
-          <div className="flex flex-col">
-            <span className="font-medium">
-              {fullName ?? "Student"}
-            </span>
-            <span className="text-xs font-normal text-muted-foreground">
-              {email}
-            </span>
-          </div>
-        </DropdownMenuLabel>
+  <div className="px-2 py-1.5">
+    <div className="flex flex-col">
+      <span className="font-medium">
+        {fullName ?? "Student"}
+      </span>
+      <span className="text-xs text-muted-foreground">
+        {email}
+      </span>
+    </div>
+  </div>
 
-        <DropdownMenuSeparator />
+  <DropdownMenuSeparator />
 
-        <DropdownMenuItem>
-          <form action={signOut} className="w-full">
-            <button
-              type="submit"
-              className="flex w-full items-center gap-2"
-            >
-              <LogOut className="h-4 w-4" />
-              Sign out
-            </button>
-          </form>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
+  <DropdownMenuItem>
+    <form action={signOut} className="w-full">
+      <button
+        type="submit"
+        className="flex w-full items-center gap-2"
+      >
+        <LogOut className="h-4 w-4" />
+        Sign out
+      </button>
+    </form>
+  </DropdownMenuItem>
+</DropdownMenuContent>
     </DropdownMenu>
   );
 }

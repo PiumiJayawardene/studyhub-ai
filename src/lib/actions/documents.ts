@@ -36,7 +36,7 @@ export async function uploadDocument(formData: FormData) {
   if (file.size > MAX_SIZE_BYTES) return { error: "File exceeds 10MB limit" };
 
   const fileType = allowedTypes[file.type];
-  if (!fileType) return { error: "Only PDF, DOCX, and TXT files are supported" };
+  if (!fileType) return { error: "Only DOCX, and TXT files are supported" };
 
   const userId = claims.claims.sub;
   const filePath = `${userId}/${Date.now()}-${file.name}`;
