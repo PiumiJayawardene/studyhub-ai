@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
-
+import { EmptyState } from "@/components/shared/empty-state";
+import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -47,11 +48,14 @@ export function SubjectsClient({
   return (
     <>
       <div className="flex flex-col gap-3">
-        {initialSubjects.length === 0 && (
-          <p className="text-sm text-muted-foreground">
-            No subjects yet.
-            Create your first one to get started.
-          </p>
+       {initialSubjects.length === 0 && (
+          <EmptyState
+            icon={BookOpen}
+            title="No subjects yet"
+            description="Create your first subject to start organizing notes, flashcards, and quizzes."
+            actionLabel="Add subject"
+            onAction={openCreate}
+          />
         )}
 
         {initialSubjects.map((subject) => (

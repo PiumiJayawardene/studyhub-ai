@@ -1,5 +1,5 @@
 "use client";
-
+import { EmptyState } from "@/components/shared/empty-state";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -27,10 +27,14 @@ export function QuizzesClient({ quizzes }: { quizzes: QuizListItem[] }) {
   return (
     <div className="flex flex-col gap-3">
       {quizzes.length === 0 && (
-        <p className="text-muted-foreground text-sm">
-          No quizzes yet. Generate one from a note to get started.
-        </p>
-      )}
+  <EmptyState
+    icon={HelpCircle}
+    title="No quizzes yet"
+    description="Open a note and generate a quiz with AI to test your understanding."
+    actionLabel="Go to notes"
+    actionHref="/notes"
+  />
+)}
       {quizzes.map((quiz) => (
         <Card key={quiz.id}>
           <CardContent className="flex items-center justify-between p-4">

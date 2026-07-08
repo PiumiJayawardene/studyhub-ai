@@ -1,5 +1,6 @@
 "use client";
-
+import { EmptyState } from "@/components/shared/empty-state";
+import { Layers } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -57,38 +58,74 @@ export function FlashcardsClient({ cards, subjects, dueCount }: FlashcardsClient
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-        {cards.map((card) => (
-          <Card key={card.id}>
-            <CardContent className="p-4 flex flex-col gap-2">
-              <p className="font-medium">{card.front}</p>
-              <p className="text-sm text-muted-foreground line-clamp-2">{card.back}</p>
-              <div className="flex justify-end gap-1">
-                <Button variant="ghost" size="icon" onClick={() => { setEditing(card); setOpen(true); }}>
-                  <Pencil className="h-4 w-4" />
-                </Button>
-               <AlertDialog>
-  <AlertDialogTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent">
-    <Trash2 className="h-4 w-4" />
-  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Delete this flashcard?</AlertDialogTitle>
-                      <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction onClick={() => deleteFlashcard(card.id)}>
-                        Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+     {cards.length === 0 ? (
+  <EmptyState
+    icon={Layers}
+    title="No flashcards yet"
+    description="Add cards manually, or open a note and generate them with AI."
+    actionLabel="Add card"
+    onAction={() => {
+      setEditing(undefined);
+      setOpen(true);
+    }}
+  />
+) : (
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+    {cards.map((card) => (
+      <Card key={card.id}>
+        <CardContent className="p-4 flex flex-col gap-2">
+          <p className="font-medium">{card.front}</p>
+          <p className="text-sm text-muted-foreground line-clamp-2">
+            {card.back}
+          </p>
+
+          <div className="flex justify-end gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                setEditing(card);
+                setOpen(true);
+              }}
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+
+            <AlertDialog>
+              <AlertDialogTrigger className="inline-flex h-9 w-9 items-center justify-center rounded-md hover:bg-accent">
+                <Trash2 className="h-4 w-4" />
+              </AlertDialogTrigger>
+
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>
+                    Delete this flashcard?
+                  </AlertDialogTitle>
+
+                  <AlertDialogDescription>
+                    This cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+
+                <AlertDialogFooter>
+                  <AlertDialogCancel>
+                    Cancel
+                  </AlertDialogCancel>
+
+                  <AlertDialogAction
+                    onClick={() => deleteFlashcard(card.id)}
+                  >
+                    Delete
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </CardContent>
+      </Card>
+    ))}
+  </div>
+)}
 
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>

@@ -36,10 +36,11 @@ import {
   deleteAssignment,
 } from "@/lib/actions/assignments";
 import { statusOptions, priorityColors, statusColors } from "@/config/assignment-options";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, ClipboardList } from "lucide-react";
 import type { Assignment } from "@/types/assignment";
 import type { Subject } from "@/types/subject";
 import { cn } from "@/lib/utils";
+import { EmptyState } from "../shared/empty-state";
 
 type AssignmentsClientProps = {
   assignments: Assignment[];
@@ -68,9 +69,18 @@ export function AssignmentsClient({ assignments, subjects }: AssignmentsClientPr
       </div>
 
       <div className="flex flex-col gap-3">
-        {assignments.length === 0 && (
-          <p className="text-muted-foreground text-sm">No assignments yet.</p>
-        )}
+       {assignments.length === 0 && (
+  <EmptyState
+    icon={ClipboardList}
+    title="No assignments yet"
+    description="Add your first assignment to start tracking deadlines."
+    actionLabel="Add assignment"
+    onAction={() => {
+      setEditing(undefined);
+      setOpen(true);
+    }}
+  />
+)}
         {assignments.map((a) => (
           <Card key={a.id}>
             <CardContent className="flex items-center justify-between p-4">

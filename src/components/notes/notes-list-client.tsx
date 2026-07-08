@@ -1,5 +1,5 @@
 "use client";
-
+import { EmptyState } from "@/components/shared/empty-state";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
@@ -52,9 +52,13 @@ export function NotesListClient({ notes }: { notes: NoteListItem[] }) {
       </Button>
 
       {notes.length === 0 && (
-        <p className="text-muted-foreground text-sm">
-          No notes yet. Create your first one to get started.
-        </p>
+        <EmptyState
+          icon={FileText}
+          title="No notes yet"
+          description="Create your first note to start building your knowledge base."
+          actionLabel="New note"
+          onAction={handleCreate}
+        />
       )}
 
       {notes.map((note) => (

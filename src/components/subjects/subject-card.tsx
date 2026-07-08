@@ -44,7 +44,11 @@ export function SubjectCard({
   }
 
   return (
-    <Card>
+  <Card
+    className="card-accent"
+    data-active="true"
+    style={{ borderLeftColor: subject.color }}
+  >
       <CardContent className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
           <div

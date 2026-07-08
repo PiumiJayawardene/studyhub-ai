@@ -84,14 +84,14 @@ export function UploadDialog({ subjects }: { subjects: Subject[] }) {
               {isPending ? "Processing..." : "Click to select a DOCX or TXT file (max 10MB)"}
             </span>
             <input
-              id="document-upload"
-              ref={inputRef}
-              type="file"
-              accept=".docx,.txt"
-              className="hidden"
-              disabled={isPending}
-              onChange={handleFileChange}
-            />
+  id="document-upload"
+  ref={inputRef}
+  type="file"
+  accept=".docx,.txt"
+  className="hidden"
+  disabled={isPending}
+  onChange={handleFileChange}
+/>
           </label>
 
           {error && <p className="text-sm text-destructive">{error}</p>}

@@ -1,5 +1,5 @@
 "use client";
-
+import { EmptyState } from "@/components/shared/empty-state";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -53,9 +53,17 @@ export function DocumentsClient({
       </div>
 
       <div className="flex flex-col gap-3">
-        {documents.length === 0 && (
-          <p className="text-muted-foreground text-sm">No documents uploaded yet.</p>
-        )}
+       {documents.length === 0 && (
+  <EmptyState
+    icon={FileText}
+    title="No documents yet"
+    description="Upload a Word (.docx) or text (.txt) file to chat with its content."
+    actionLabel="Upload"
+    onAction={() =>
+      document.getElementById("document-upload")?.click()
+    }
+  />
+)}
         {documents.map((doc) => (
           <Card key={doc.id}>
             <CardContent className="flex items-center justify-between p-4">
